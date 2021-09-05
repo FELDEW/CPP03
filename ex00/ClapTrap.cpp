@@ -3,19 +3,19 @@
 ClapTrap::ClapTrap()
 {
 	std::cout << "Default constructor called" << std::endl;
-	this->value = 0;
+	this->hitpoints = 10;
+	this->energy_points = 10;
+	this->attack_damage = 0;
+	this->name = "Default";
 }
 
-ClapTrap::ClapTrap(int const param)
+ClapTrap::ClapTrap(std::string const name)
 {
-	std::cout << "Int constructor called" << std::endl;
-	this->value = param << this->nb_bits;
-}
-
-ClapTrap::ClapTrap(float const param)
-{
-	std::cout << "Float constructor called" << std::endl;
-	this->value = (int)(roundf)(param * (1 << this->nb_bits));
+	std::cout << "Name constructor called" << std::endl;
+	this->hitpoints = 10;
+	this->energy_points = 10;
+	this->attack_damage = 0;
+	this->name = name;
 }
 
 ClapTrap::~ClapTrap()
@@ -29,21 +29,38 @@ ClapTrap::ClapTrap(const ClapTrap& origin)
 	*this = origin;	
 }
 
-int ClapTrap::getRawBits( void ) const
+void ClapTrap::attack( std::string const & target)
 {
-	return (this->value);
+	if (this->energy_points < this->attack_damage)
+		std::cout << "Not enought energy to attack" << std::endl;
+	else
+	{
+		this->energy_points -= this->attack_damage;
+		std::cout << "ClapTrap " << this->name << " attack " << target << " causing ";
+		std::cout << this->attack_damage << " points of damage!" << std::endl;
+	}
 }
 
-void ClapTrap::setRawBits( int const raw )
+void ClapTrap::takeDamage( unsigned int amount)
 {
-	std::cout << "setRawBits member function called" << std::endl;
-	this->value = raw;
+	if (this->hitpoints <= amount)
+	{
+		this->hitpoints = 0;
+		std::cout << "ClapTrap " << this->name << " taked ";
+		std::cout << this->hitpoints << " points of damage and died!" << std::endl;
+
+	}
+	else
+	{
+		this->hitpoints -= amount;
+		std::cout << "ClapTrap " << this->name << " taked ";
+		std::cout << amount << " points of damage!" << std::endl;
+	}
 }
 
-ClapTrap& ClapTrap::operator=(const ClapTrap& origin)
+void ClapTrap::beRepaired( unsigned int amount)
 {
-	std::cout << "Assignation operator called" << std::endl;
-	value = origin.getRawBits();
-	return (*this);
+	this->hitpoints += amount;
+	std::cout << "ClapTrap " << this->name << " repaired ";
+	std::cout << amount << " points!" << std::endl;
 }
-

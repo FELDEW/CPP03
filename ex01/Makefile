@@ -1,7 +1,8 @@
-NAME		=	fixed
+NAME		=	scavtrap
 
 SRCS		=	./main.cpp \
-				./ClapTrap.cpp
+				./ClapTrap.cpp \
+				./ScavTrap.cpp
 	
 OBJS		=	$(SRCS:.cpp=.o)
 
@@ -18,7 +19,7 @@ all :		$(NAME)
 
 $(NAME) :	$(OBJS)
 			$(CPP) $(CFLAGS) -o $(NAME) $(OBJS) -I.
-			@echo "Fixed"
+			@echo "scavtrap"
 
 clean :		
 			$(RM) $(OBJS)
